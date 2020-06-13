@@ -134,7 +134,7 @@ async def send(text, city=None, sticker=None):
         except utils.exceptions.ChatNotFound: pass
 
 
-async def check():
+async def check_updates_loop():
     res = requests.get('https://www.worldometers.info/coronavirus/#countries').text
     html = BeautifulSoup(res, 'html.parser')
     for row in html.select("tr"):
@@ -198,5 +198,5 @@ async def check_city():
 
 
 if __name__ == "__main__":
-    dp.loop.create_task(check())
+    dp.loop.create_task(check_updates_loop())
     executor.start_polling(dp, skip_updates=True)
